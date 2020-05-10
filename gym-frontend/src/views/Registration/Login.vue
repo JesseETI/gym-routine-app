@@ -29,7 +29,7 @@ export default {
     },
     mounted() {
         if (this.token != null) {
-            this.$router.replace({ name: 'Home' })
+            this.$router.replace({ name: "AllWorkouts" })
         }
         
     },
@@ -43,9 +43,11 @@ export default {
                 this.token = resp.data.token
                 console.log(this.token)
                 localStorage.setItem('user-token', resp.data.token)
+                this.$router.replace({ name: 'AllWorkouts' })
             })
             .catch(err => {
                 localStorage.removeItem('user-token')
+                alert("Incorrect Login Credentials")
             })
         },
     }
@@ -53,17 +55,15 @@ export default {
 </script>
 
 <style scoped>
-
     .login {
-        width: 50%;
-        height: 50%;
-        background-color: white;
-        border-radius: 5px;
-        padding: 3rem;
-        margin: auto;
-        margin-top: 10%;
-        border: 1px solid #E4E6E7;
-        box-shadow: 0px 2px 5px rgba(0,0,0,0.4);
-    }
-
+            width: 50%;
+            height: 50%;
+            background-color: white;
+            border-radius: 5px;
+            padding: 3rem;
+            margin: auto;
+            margin-top: 10%;
+            border: 1px solid #E4E6E7;
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.4);
+        }
 </style>

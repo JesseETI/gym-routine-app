@@ -2,8 +2,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Login from "../views/Registration/Login.vue"
-import Home from "../views/Home.vue"
 import SignUp from "../views/Registration/SignUp.vue"
+import AllWorkouts from "../views/AllWorkouts.vue"
+import MyWorkouts from "../views/MyWorkouts.vue"
+import WorkoutDetails from "../views/CRUD/WorkoutDetails.vue"
+import CreateWorkout from "../views/CRUD/CreateWorkout.vue"
 
 Vue.use(VueRouter)
 
@@ -20,14 +23,29 @@ Vue.use(VueRouter)
     component: Login
   },
   {
-    path: "/registration/signup",
-    name: "SignUp",
+    path: '/registration/signup',
+    name: 'SignUp',
     component: SignUp
   },
   {
     path: "/home",
-    name: "Home",
-    component: Home
+    name: "AllWorkouts",
+    component: AllWorkouts
+  },
+  {
+    path: "/myworkouts",
+    name: "MyWorkouts",
+    component: MyWorkouts
+  },
+  {
+    path: "/details",
+    name: "WorkoutDetails",
+    component: WorkoutDetails
+  },
+  {
+    path: '/create',
+    name: 'CreateWorkout',
+    component: CreateWorkout
   }
 ]
 

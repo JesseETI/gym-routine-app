@@ -2,7 +2,7 @@
     <div class="signup">
         <h1>Account Sign-Up</h1>
         <br/>
-        <form method="POST">
+        <form method="POST" @submit.prevent="signUp">
             <input type="text" class="form-control" name="username" placeholder="Username"/>
             <input type="password" class="form-control" name="email" placeholder=" Enter Email">
             <input type="password" class="form-control" name="password1" placeholder=" Enter Password">
@@ -20,8 +20,15 @@
 
 <script>
 
+import axios from 'axios'
+
 export default {
-    name: "SignUp"
+    name: "SignUp",
+    methods : {
+        signUp () {
+            axios.get("http://localhost:8000/api/users/")
+        }
+    }
 }
 </script>
 
