@@ -3,10 +3,8 @@
         <h1>Account Sign-Up</h1>
         <br/>
         <form method="POST" @submit.prevent="signUp">
-            <input type="text" class="form-control" name="username" placeholder="Username"/>
-            <input type="password" class="form-control" name="email" placeholder=" Enter Email">
-            <input type="password" class="form-control" name="password1" placeholder=" Enter Password">
-            <input type="password" class="form-control" name="password1" placeholder=" Enter Password Again">
+            <input type="text" class="form-control" name="username" placeholder="Username" v-model="username" required/>
+            <input type="password" class="form-control" name="password" placeholder=" Enter Password" v-model="password" required/>
             <br>
             <button type="submit" class="btn btn-success btn-lg" id="submit">SIGN UP</button>
         </form>
@@ -24,9 +22,27 @@ import axios from 'axios'
 
 export default {
     name: "SignUp",
+    data() {
+        return {
+            username : null,
+            password : null,
+        }
+    },
     methods : {
-        signUp () {
-            axios.get("http://localhost:8000/api/users/")
+        signUp() {
+            axios.post("http://localhost:8000/api/users/", {
+                username : this.username,
+                password : this.password
+            }).then(
+                resp => {
+                alert("User Created")
+                this.$router.replace({name : 'Login'})
+                }).catch(
+                err => {
+                    console.log(err)
+                    alert("Account Signup Failed \n \
+                    \nPlease try another username & password combination. ")
+                })
         }
     }
 }

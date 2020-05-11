@@ -1,6 +1,20 @@
 <template>
-    <div>
+    <div class="myworkouts">
         <Header/>
+    
+        <div class="container-fluid">
+            <h1>My Workouts</h1>
+            <router-link :to="{ name: 'CreateWorkout' }" tag="button" class="btn btn-success">
+                Create Workout
+            </router-link>
+            <WorkoutCard 
+                :workouts = workouts
+
+                :myworkouts = "true"
+            />
+
+        </div>
+
     </div>
 </template>
 
@@ -8,11 +22,18 @@
 import Header from "@/components/Header.vue"
 import axios from "axios"
 import { tokenService } from '../storage/service'
+import WorkoutCard from "@/components/WorkoutCard.vue"
 
 export default {
     name: "MyWorkouts",
     components : {
         Header,
+        WorkoutCard
+    },
+    data() {
+        return {
+            workouts : []
+        }
     },
     created() {
         this.token = tokenService.getToken()
@@ -29,7 +50,7 @@ export default {
             
             axios.get("http://localhost:8000/api/workouts/getmyworkouts", axiosConfig)
             .then(
-                res => console.log(res.data)
+                res => this.workouts = res.data
             )
             .catch(
                 err => console.log(err)

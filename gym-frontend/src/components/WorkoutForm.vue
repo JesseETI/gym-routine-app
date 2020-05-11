@@ -2,36 +2,27 @@
     <div class="container">
         <h1>{{formTitle}}</h1>
 
-        <form @submit.prevent="createWorkout" v-if="!createNew">
-            <fieldset disabled="disabled" v-if="!createNew">
+        <form @submit.prevent="createWorkout">
+            <fieldset>
 
                 <div class="form-group">
-                    <input type="text" class="form-control" name="title"  v-model="workoutTitle" placeholder="Title"/>
+                    <input type="text" class="form-control" name="title"  v-model="workoutTitle" placeholder="Title" required/>
                 </div>
 
-                <div class="form-group" v-if="createNew">
-                    <select name="type" class="form-control" v-model="split">
-                        <option disabled selected value> Select a Split </option>
-                        <option value="upperlower" selected>Upper Lower</option>
-                        <option value="PPL">Push / Pull / Legs</option>
-                        <option value="fullbody">Full Body</option>
-                    </select>
-                </div>
-
-                <div class="form-group" v-if="!createNew">
+                <div class="form-group">
                     <input type="text" class="form-control" name="split" v-model="split" placeholder="Split"/>
                 </div>
 
                 <div class="form-group" v-if="!createNew">
-                    <input type="text" class="form-control" name="date" v-model="date" placeholder="Date"/>
+                    <input type="text" class="form-control" name="date" placeholder="Date"/>
                 </div>
 
                 <div class="form-group">
                     <input type="text" class="form-control" name="duration" v-model="duration" placeholder="Duration of Workout"/>
                 </div>
 
-                <div class="form-group">
-                    <input type="text" class="form-control" name="author" v-model="author" placeholder="Author"/>
+                <div class="form-group" v-if="!createNew">
+                    <input type="text" class="form-control" name="author" placeholder="Author"/>
                 </div>
 
                 <div class="form-group" v-if="createNew">
@@ -59,27 +50,44 @@
 
 <script>
 import axios from 'axios'
+import { tokenService } from '../storage/service'
 
 export default {
     name : "WorkoutForm",
     data () {
         return {
+            workoutTitle : '',
+            split : '',
+            duration : '',
         }
     },
+    created() {
+        this.token = tokenService.getToken()
+    }, 
     methods : {
+        createWorkout() {
+
+            let axiosConfig = {
+                    headers : {
+                        'Authorization': 'Token '+ this.token
+                    }
+                }
+            
+            axios.post("http://localhost:8000/api/workouts/", {
+                title : this.workoutTitle,
+                split : this.split,
+                duration : this.duration,
+            },
+            axiosConfig).then(
+                res => console.log(res.data)
+            ).catch(
+                err => console.log(err)
+            )
+        }
     },
     props : [
         'formTitle',
-        'workoutTitle',
-        'split',
-        'date',
-        'duration',
-        'author',
-        'createNew'
+        'createNew',
     ],
 }
 </script>
-
-<style scoped>
-
-</style>

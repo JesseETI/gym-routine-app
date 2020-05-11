@@ -1,7 +1,7 @@
 <template>
     <div class="createWorkout">
         <Header/>
-        <WorkoutForm formTitle = "Create Workout"/>
+        <WorkoutForm formTitle = "Create Workout" createNew= "true"/>
     </div>
 </template>
 

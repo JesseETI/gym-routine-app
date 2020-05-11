@@ -1,14 +1,25 @@
 <template>
     <div class="workoutdetails">
         <Header />
-        <WorkoutForm 
-            formTitle = "Workout Details"
-            :workoutTitle = workout.title
-            :split = workout.split
-            :date = workout.date
-            :duration = workout.duration
-            :author = workout.author_name
-        />
+        
+        <div class="workoutinfo">
+            <h1 class="text-primary">{{workout.title}}</h1>
+            <div class="infobody text-left">
+                <h5>Workout Type: {{workout.split}}</h5>
+                <br>
+                <h5>Date Created: {{workout.date}}</h5>
+                <br>
+                <h5>Session Duration: {{workout.duration}}</h5>
+                <br>
+                <h5>Created By: {{workout.author_name}}</h5>
+                <br>
+                <div class="exercises">
+                    <h2 class="text-center text-success">Exercises</h2>
+                    <h5>{{workout.exercises_list}}</h5>
+                </div>
+            </div>
+        </div>
+
         {{workout}}
     </div>
 </template>
@@ -31,7 +42,6 @@ export default {
     },
     created() {
         this.workout = this.$route.params.workout;
-        
     },
     data() {
             return {
@@ -43,4 +53,18 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+    .workoutinfo {
+        width: 80%;
+        height: auto;
+        background-color: white;
+        border-radius: 5px;
+        padding: 3rem;
+        margin: auto;
+        border: 1px solid #E4E6E7;
+        box-shadow: 0px 2px 5px rgba(0,0,0,0.4);
+    }
+
+</style>
   

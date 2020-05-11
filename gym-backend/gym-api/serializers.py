@@ -2,12 +2,20 @@ from rest_framework import serializers
 from .models import Workout, Exercise
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
+from rest_framework.fields import CurrentUserDefault
 
 
 class WorkoutSerializer(serializers.ModelSerializer):
     class Meta:
         model = Workout
         fields = ('id', 'title', 'split', 'date', 'duration', 'author', 'author_name', 'exercises_list')
+
+    def create(self, validated_data):
+        user = self.context["request"].user
+        workout = Workout.objects.create(**validated_data, author= user)
+        return workout
+
+
 
 class ExerciseSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,10 +26,6 @@ class ExerciseSerializer(serializers.ModelSerializer):
                 'required': True,
             }
         }
-
-        def create(self, request, *args, **kwargs):
-            response = {'message': 'Exercise cannot be created like this'}
-            return Response(response, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserSerializer(serializers.ModelSerializer):

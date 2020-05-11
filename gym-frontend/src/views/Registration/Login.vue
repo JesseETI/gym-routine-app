@@ -3,8 +3,8 @@
         <h1>Account Login</h1>
         <br>
         <form @submit.prevent="login">
-            <input type="text" class="form-control" name="username"  v-model="username" placeholder="Username"/>
-            <input type="password" class="form-control" name="password" placeholder="Password" v-model="password">
+            <input type="text" class="form-control" name="username"  v-model="username" placeholder="Username" required/>
+            <input type="password" class="form-control" name="password" placeholder="Password" v-model="password" required>
             <br>
             <button type="submit" class="btn btn-success btn-lg" id="submit">LOGIN</button>
         </form>
@@ -41,7 +41,6 @@ export default {
             })
             .then(resp => {
                 this.token = resp.data.token
-                console.log(this.token)
                 localStorage.setItem('user-token', resp.data.token)
                 this.$router.replace({ name: 'AllWorkouts' })
             })

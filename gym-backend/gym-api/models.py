@@ -7,7 +7,7 @@ class Workout(models.Model):
     split = models.CharField(max_length=80, null=False, blank=False)
     date = models.DateTimeField(verbose_name="Date Created", auto_now_add=True)
     duration = models.CharField(max_length=80, null=False, blank=False)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
 
     def author_name(self):
         return self.author.username

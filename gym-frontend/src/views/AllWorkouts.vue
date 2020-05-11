@@ -4,7 +4,6 @@
     
         <div class="container-fluid">
             <h1>All Workouts</h1>
-
             <WorkoutCard 
                 :workouts = workouts
             />
