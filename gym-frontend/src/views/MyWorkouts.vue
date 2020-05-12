@@ -4,12 +4,12 @@
     
         <div class="container-fluid">
             <h1>My Workouts</h1>
+            <p>Logged in as: {{currUser}}</p>
             <router-link :to="{ name: 'CreateWorkout' }" tag="button" class="btn btn-success">
                 Create Workout
             </router-link>
             <WorkoutCard 
                 :workouts = workouts
-
                 :myworkouts = "true"
             />
 
@@ -32,7 +32,8 @@ export default {
     },
     data() {
         return {
-            workouts : []
+            workouts : [],
+            currUser : localStorage.getItem('username')
         }
     },
     created() {
@@ -60,7 +61,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-
-</style>

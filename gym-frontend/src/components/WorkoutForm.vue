@@ -2,19 +2,16 @@
     <div class="container">
         <h1>{{formTitle}}</h1>
 
-        <form @submit.prevent="createWorkout">
-            <fieldset>
-
+        <form @submit.prevent="WorkoutFormHandler(workout)">
                 <div class="form-group">
                     <input type="text" class="form-control" name="title"  v-model="workoutTitle" placeholder="Title" required/>
                 </div>
-
                 <div class="form-group">
-                    <input type="text" class="form-control" name="split" v-model="split" placeholder="Split"/>
+                    <input type="text" class="form-control" name="split" v-model="split" placeholder="Split" required/>
                 </div>
 
                 <div class="form-group" v-if="!createNew">
-                    <input type="text" class="form-control" name="date" placeholder="Date"/>
+                    <input type="text" class="form-control" name="date" :placeholder="workout.date" disabled/>
                 </div>
 
                 <div class="form-group">
@@ -22,28 +19,16 @@
                 </div>
 
                 <div class="form-group" v-if="!createNew">
-                    <input type="text" class="form-control" name="author" placeholder="Author"/>
+                    <input type="text" class="form-control" name="author" :placeholder="workout.author_name" disabled/>
                 </div>
 
                 <div class="form-group" v-if="createNew">
                     <button type="submit" class="btn btn-success btn-lg" id="submit">Create</button>
                 </div>
-            </fieldset>
 
-            <div class="row">
-                 <div class="col-6 text-right">
-                    <div class="form-group" v-if="!createNew">
-                        <button type="submit" class="btn btn-danger btn-lg" id="submit">Delete</button>
-                    </div>
+                <div class="form-group" v-if="!createNew">
+                    <button type="submit" class="btn btn-primary btn-lg" id="submit">Edit</button>
                 </div>
-
-                <div class="col-6 text-left">
-                    <div class="form-group" v-if="!createNew">
-                        <button type="submit" class="btn btn-primary btn-lg" id="submit">Edit</button>
-                    </div>
-                </div>
-            </div>
-
         </form>
     </div>
 </template>
@@ -54,17 +39,27 @@ import { tokenService } from '../storage/service'
 
 export default {
     name : "WorkoutForm",
-    data () {
+    data() {
         return {
-            workoutTitle : '',
-            split : '',
-            duration : '',
+            workoutTitle : null || this.workout.title,
+            split : null || this.workout.split,
+            duration : null || this.workout.duration,
+
         }
     },
     created() {
         this.token = tokenService.getToken()
     }, 
     methods : {
+        WorkoutFormHandler(workout) {
+
+            if (this.createNew) {
+                this.createWorkout()
+            }
+            else {
+                this.editWorkout(workout)
+            }
+        },
         createWorkout() {
 
             let axiosConfig = {
@@ -79,15 +74,51 @@ export default {
                 duration : this.duration,
             },
             axiosConfig).then(
-                res => console.log(res.data)
+                res => {
+                    this.$router.replace({ name: 'WorkoutDetails', params: { workout: res.data }})
+                }
+            ).catch(
+                err => console.log(err)
+            )
+        },
+        editWorkout(workout) {
+
+            let axiosConfig = {
+                    headers : {
+                        'Authorization': 'Token '+ this.token
+                    }
+                }
+
+            axios.put(`http://localhost:8000/api/workouts/${workout.id}/`, {
+                title : this.workoutTitle,
+                split : this.split,
+                duration : this.duration,
+            },
+            axiosConfig).then(
+                res => {
+                    this.$router.replace({ name: 'WorkoutDetails', params: { workout: res.data }})
+                }
             ).catch(
                 err => console.log(err)
             )
         }
     },
-    props : [
-        'formTitle',
-        'createNew',
-    ],
+    props : {
+        'formTitle' : {
+            default : ""
+        },
+        'createNew': {
+        },
+        'workout' : {
+            type: Object,
+            default () {
+                return {
+                    title : "",
+                    split : "",
+                    duration : ""
+                }
+            }
+        }
+    },
 }
 </script>

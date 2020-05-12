@@ -6,6 +6,7 @@
             <h1>All Workouts</h1>
             <WorkoutCard 
                 :workouts = workouts
+                :myworkouts = "false"
             />
 
         </div>
@@ -30,6 +31,10 @@ export default {
                 workouts : [],
             }
     },
+    created() {
+            this.token = tokenService.getToken()
+            this.getWorkouts()
+    },
     methods: {
         getWorkouts() {
 
@@ -50,10 +55,6 @@ export default {
             
         },
 
-    },
-    created() {
-            this.token = tokenService.getToken()
-            this.getWorkouts()
     },
 }
 </script>

@@ -7,6 +7,7 @@ import AllWorkouts from "../views/AllWorkouts.vue"
 import MyWorkouts from "../views/MyWorkouts.vue"
 import WorkoutDetails from "../views/CRUD/WorkoutDetails.vue"
 import CreateWorkout from "../views/CRUD/CreateWorkout.vue"
+import EditWorkout from "../views/CRUD/EditWorkout.vue"
 
 Vue.use(VueRouter)
 
@@ -46,6 +47,12 @@ Vue.use(VueRouter)
     path: '/create',
     name: 'CreateWorkout',
     component: CreateWorkout
+  },
+
+  {
+    path: '/edit',
+    name: 'EditWorkout',
+    component: EditWorkout
   }
 ]
 

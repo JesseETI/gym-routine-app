@@ -1,7 +1,7 @@
 <template>
     <div class="createWorkout">
         <Header/>
-        <WorkoutForm formTitle = "Create Workout" createNew= "true"/>
+        <WorkoutForm formTitle = "Create Workout" createNew = 'true'/>
     </div>
 </template>
 
@@ -13,11 +13,8 @@ import Header from "@/components/Header.vue"
 export default {
     name : "CreateWorkout",
     components: {
+        Header,
         WorkoutForm,
-        Header
     },
-    methods : {
-
-    }
 }
 </script>

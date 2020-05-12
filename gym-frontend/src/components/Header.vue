@@ -25,7 +25,9 @@
                 </li>
               </ul>
               
-                <span class="navbar-brand"><a class="text-warning" v-on:click="logout">Logout</a></span>
+                <span class="navbar-brand">
+                  <a class="text-warning" v-on:click="logout">Logout</a>
+                </span>
 
         </div>
 
@@ -36,13 +38,41 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { tokenService } from '../storage/service'
+
 export default {
     name: "Header",
+    created() {
+      this.token = tokenService.getToken()
+      this.getCurrentUser()
+    },
     methods : {
       logout() {
         localStorage.removeItem('user-token')
+        localStorage.removeItem('username')
         this.$router.replace({name : "Login"})
+      },
+      getCurrentUser() {
+
+        let axiosConfig = {
+          headers : {
+            'Authorization': 'Token '+ this.token
+            }
+        }
+
+        axios.get("http://localhost:8000/api/workouts/getcurrentuser", axiosConfig)
+          .then (
+            res => {
+              localStorage.setItem('username', res.data.username)
+            })
+          .catch (
+            err => {
+              localStorage.removeItem('username')
+              console.log(err)
+            })
       }
-    }
+      
+    },
 }
 </script>

@@ -16,16 +16,10 @@ class WorkoutSerializer(serializers.ModelSerializer):
         return workout
 
 
-
 class ExerciseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exercise
         fields = '__all__'
-        extra_kwargs = {
-            'image': {
-                'required': True,
-            }
-        }
 
 
 class UserSerializer(serializers.ModelSerializer):

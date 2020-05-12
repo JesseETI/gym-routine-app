@@ -6,15 +6,9 @@
                         <h5 class="card-title">{{workout.title}}</h5>
                         <p class="card-text">{{workout.split}}</p>
                         <p class="card-text">Created by: {{workout.author_name}}</p>
-                        <router-link :to="{ name: 'WorkoutDetails' , params: { workout: workout } }" tag="button" class="btn btn-info">Details</router-link>
-                        &nbsp;
-                        <button class="btn btn-danger" v-if="myworkouts" v-on:click="deleteWorkout(workout)">Delete</button>
-                        &nbsp;
-                        <router-link :to="{ name: 'WorkoutDetails' , params: { workout: workout } }" tag="button" class="btn btn-primary" v-if="myworkouts">Edit</router-link>
-
-                    </div>
+                        <router-link :to="{ name: 'WorkoutDetails' , params: { workout: workout} }" tag="button" class="btn btn-info">Details</router-link>
+                     </div>
                 </div>
-
             </div>
 </template>
 
@@ -25,30 +19,8 @@ import { tokenService } from '../storage/service'
 export default {
     name: "WorkoutCard",
     props : ["workouts", "myworkouts"],
-    mounted() {
+    beforeMount() {
         this.token = tokenService.getToken()
     },
-    methods: {
-        deleteWorkout(workout) {
-            let decision = confirm("Would you like to delete this workout?")
-            if (decision) {
-
-                let axiosConfig = {
-                    headers : {
-                        'Authorization': 'Token '+ this.token
-                    }
-                }
-
-                axios.delete(`http://localhost:8000/api/workouts/${workout.id}`, axiosConfig)
-                .then(
-                    res => {
-                        console.log(res)
-                        this.$delete(this.workouts, 10)
-                    } ).catch(
-                    err => console.log(err)
-                )
-            }
-        }
-    }
 }
 </script>

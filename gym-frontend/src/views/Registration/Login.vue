@@ -22,8 +22,8 @@ export default {
     name: "Login",
     data() {
         return {
-            username : '',
-            password : '',
+            username : null,
+            password : null,
             token : localStorage.getItem('user-token') || null,
         }
     },
@@ -31,7 +31,6 @@ export default {
         if (this.token != null) {
             this.$router.replace({ name: "AllWorkouts" })
         }
-        
     },
     methods : {
         login() {

@@ -14,7 +14,7 @@ class WorkoutViewSet(viewsets.ModelViewSet):
     queryset = Workout.objects.all()
     serializer_class = WorkoutSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.AllowAny,)
 
     @action(methods=['GET'], detail = False)
     def getmyworkouts(self, request):
@@ -26,13 +26,22 @@ class WorkoutViewSet(viewsets.ModelViewSet):
 
             return Response(serializer.data, status=status.HTTP_200_OK)
         except:
-            serializer = UserSerializer(user)
-            '''
             response = {
                 "message": "No workouts found",
             }
-            '''
-            return Response(serializer.data, status = status.HTTP_400_BAD_REQUEST)
+            return Response(response, status = status.HTTP_400_BAD_REQUEST)
+
+    @action(methods=['GET'], detail=False)
+    def getcurrentuser(self, request):
+        user = request.user
+        try:
+            serializer = UserSerializer(user)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except:
+            response = {
+                "message": "No user found",
+            }
+            return Response(response, status=status.HTTP_400_BAD_REQUEST)
 
 
     @action(methods=['POST'], detail = True)
@@ -70,7 +79,7 @@ class ExerciseViewSet(viewsets.ModelViewSet):
     queryset = Exercise.objects.all()
     serializer_class = ExerciseSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.AllowAny,)
 
 
 class UserViewSet(viewsets.ModelViewSet):

@@ -21,4 +21,5 @@ class Workout(models.Model):
 
 class Exercise(models.Model):
     title = models.CharField(max_length=80,null=False, blank=False, unique=True)
+    image = models.ImageField(upload_to="", null=True, blank=True)
     workout = models.ForeignKey(Workout, on_delete=models.CASCADE)
