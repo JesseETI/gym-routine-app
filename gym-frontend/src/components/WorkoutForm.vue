@@ -67,7 +67,7 @@ export default {
                     }
                 }
             
-            axios.post("http://localhost:8000/api/workouts/", {
+            axios.post("http://jesseeti.pythonanywhere.com/api/workouts/", {
                 title : this.workoutTitle,
                 split : this.split,
                 duration : this.duration,
@@ -88,7 +88,7 @@ export default {
                     }
                 }
 
-            axios.put(`http://localhost:8000/api/workouts/${workout.id}/`, {
+            axios.put(`http://jesseeti.pythonanywhere.com/api/workouts/${workout.id}/`, {
                 title : this.workoutTitle,
                 split : this.split,
                 duration : this.duration,

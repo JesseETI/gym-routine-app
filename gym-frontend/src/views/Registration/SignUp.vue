@@ -30,7 +30,7 @@ export default {
     },
     methods : {
         signUp() {
-            axios.post("http://localhost:8000/api/users/", {
+            axios.post("http://jesseeti.pythonanywhere.com/api/users/", {
                 username : this.username,
                 password : this.password
             }).then(

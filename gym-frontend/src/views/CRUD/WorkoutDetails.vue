@@ -140,7 +140,7 @@ export default {
                     }
                 }
                         
-            axios.get(`http://localhost:8000/api/workouts/${this.workout.id}/getrelatedexercises`, axiosConfig)
+            axios.get(`http://jesseeti.pythonanywhere.com/api/workouts/${this.workout.id}/getrelatedexercises`, axiosConfig)
             .then(
                 res => {
                     this.exercises = res.data
@@ -163,7 +163,7 @@ export default {
                     }
                 }
 
-                axios.delete(`http://localhost:8000/api/workouts/${workout.id}`, axiosConfig)
+                axios.delete(`http://jesseeti.pythonanywhere.com/api/workouts/${workout.id}`, axiosConfig)
                 .then(
                     res => {
                         console.log(res.data)
@@ -183,7 +183,7 @@ export default {
                     }
                 }
 
-                axios.delete(`http://localhost:8000/api/exercises/${exercise.id}`, axiosConfig)
+                axios.delete(`http://jesseeti.pythonanywhere.com/api/exercises/${exercise.id}`, axiosConfig)
                 .then(
                     res => {
                         this.exercises.pop(exercise)
@@ -215,7 +215,7 @@ export default {
             
             axios({
                 method: 'post',
-                url: 'http://localhost:8000/api/exercises/',
+                url: 'http://jesseeti.pythonanywhere.com/api/exercises/',
                 data: formData,
                 headers: {'Content-Type': 'multipart/form-data',  'Authorization': 'Token ' + this.token}
             })

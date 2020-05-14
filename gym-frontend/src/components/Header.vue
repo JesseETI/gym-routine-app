@@ -64,7 +64,7 @@ export default {
             }
         }
 
-        axios.get("http://localhost:8000/api/workouts/getcurrentuser", axiosConfig)
+        axios.get("http://jesseeti.pythonanywhere.com/api/workouts/getcurrentuser", axiosConfig)
           .then (
             res => {
               localStorage.setItem('username', res.data.username)
