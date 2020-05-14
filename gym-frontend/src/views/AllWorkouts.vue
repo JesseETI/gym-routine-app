@@ -44,7 +44,7 @@ export default {
                 }
             }
             
-            axios.get("http://jesseeti.pythonanywhere.com/api/workouts/", axiosConfig)
+            axios.get("https://jesseeti.pythonanywhere.com/api/workouts/", axiosConfig)
             .then(
                 res => this.workouts = res.data
             )

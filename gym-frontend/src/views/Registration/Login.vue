@@ -34,7 +34,7 @@ export default {
     },
     methods : {
         login() {
-            axios.post('http://jesseeti.pythonanywhere.com/api/auth/', {
+            axios.post('https://jesseeti.pythonanywhere.com/api/auth/', {
                 username: this.username,
                 password: this.password,
             })
