@@ -23,6 +23,12 @@ export default {
     },
     created() {
         this.workout = this.$route.params.workout
+        if (this.workout != null) {
+            localStorage.setItem("editWorkout", JSON.stringify(this.workout))
+        }
+        else{
+            this.workout = JSON.parse(localStorage.getItem("editWorkout"))
+        }
     }
 }
 </script>

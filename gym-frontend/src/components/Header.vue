@@ -52,6 +52,9 @@ export default {
         localStorage.removeItem('user-token')
         localStorage.removeItem('username')
         this.$router.replace({name : "Login"})
+        localStorage.removeItem('username')
+        localStorage.removeItem('editWorkout')
+        localStorage.removeItem('workout')
       },
       getCurrentUser() {
 

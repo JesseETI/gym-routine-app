@@ -1,7 +1,6 @@
 <template>
     <div class="row d-flex justify-content-center mt-4">
                 <div class="card col-4 m-1" v-bind:key="workout.id" v-for="workout in workouts">
-                    <img src="#" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{workout.title}}</h5>
                         <p class="card-text">{{workout.split}}</p>

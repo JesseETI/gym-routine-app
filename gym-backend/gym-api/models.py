@@ -12,14 +12,9 @@ class Workout(models.Model):
     def author_name(self):
         return self.author.username
 
-    def exercises_list(self):
-        exercise_queryset = Exercise.objects.filter(workout = self)
-        exercise_list = []
-        for exercise in exercise_queryset:
-            exercise_list.append(exercise)
-        return exercise_list
-
 class Exercise(models.Model):
     title = models.CharField(max_length=80,null=False, blank=False, unique=True)
+    sets = models.IntegerField(null=False, blank = False)
+    reps = models.IntegerField(null=False, blank=False)
     image = models.ImageField(upload_to="", null=True, blank=True)
     workout = models.ForeignKey(Workout, on_delete=models.CASCADE)

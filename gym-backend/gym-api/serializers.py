@@ -8,7 +8,7 @@ from rest_framework.fields import CurrentUserDefault
 class WorkoutSerializer(serializers.ModelSerializer):
     class Meta:
         model = Workout
-        fields = ('id', 'title', 'split', 'date', 'duration', 'author', 'author_name', 'exercises_list')
+        fields = ('id', 'title', 'split', 'date', 'duration', 'author', 'author_name')
 
     def create(self, validated_data):
         user = self.context["request"].user

@@ -15,7 +15,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="text" class="form-control" name="duration" v-model="duration" placeholder="Duration of Workout"/>
+                    <input type="text" class="form-control" name="duration" v-model="duration" placeholder="Duration of Workout" required/>
                 </div>
 
                 <div class="form-group" v-if="!createNew">
@@ -44,7 +44,6 @@ export default {
             workoutTitle : null || this.workout.title,
             split : null || this.workout.split,
             duration : null || this.workout.duration,
-
         }
     },
     created() {
@@ -75,11 +74,11 @@ export default {
             },
             axiosConfig).then(
                 res => {
-                    this.$router.replace({ name: 'WorkoutDetails', params: { workout: res.data }})
+                    this.$router.replace({ name: 'MyWorkouts'})
                 }
             ).catch(
-                err => console.log(err)
-            )
+                err => {console.log(err)
+                })
         },
         editWorkout(workout) {
 
