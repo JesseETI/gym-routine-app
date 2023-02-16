@@ -37,6 +37,6 @@ SQLAlchemy==1.3.16
 sqlparse==0.3.1
 urllib3==1.26.5
 virtualenv==20.0.13
-Werkzeug==1.0.1
+Werkzeug==2.2.3
 wrapt==1.11.2
 WTForms==2.3.1
